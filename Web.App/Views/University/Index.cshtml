@@ -1,0 +1,40 @@
+﻿@model List<University>
+
+@{
+    Layout = "_Layout"; // Assuming you want to use the default layout file
+}
+
+<h1 class="text-center my-4">Університети України</h1>
+
+<form method="get" action="@Url.Action("Index")" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="searchQuery" placeholder="Пошук по назві університету"
+               value="@Context.Request.Query["searchQuery"]"
+               class="form-control" />
+        <button type="submit" class="btn btn-danger">Пошук</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Назва університету</th>
+                <th>Дата заснування</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var university in Model)
+            {
+                <tr>
+                    <td>@university.Name</td>
+                    <td>@university.FoundationDate</td>
+                    <td>
+                        <a href="@Url.Action("Details", new { name = university.Name })" class="btn btn-danger">Детальніше</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
